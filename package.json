@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/SorinLonca/Share-your-food/issues"
   },
-  "homepage": "https://github.com/SorinLonca/Share-your-food#readme"
+  "homepage": "https://github.com/SorinLonca/Share-your-food#readme",
+  "dependencies": {
+    "angularjs": "0.0.1",
+    "bootstrap": "^3.3.7"
+  }
 }
