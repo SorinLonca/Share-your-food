@@ -1,31 +1,23 @@
-* {
-    font-family:arial;
-    margin:0;
-    padding:0;
+nav ul {
+  padding: 0; /* Remove the default padding. */
+  list-style: none;
+  /* I want everything inside the nav bar centered, thus: */
+  text-align: center;
 }
 
-.logo, .intro, .menu, .content {
-    padding:10px;
-}
-.menu {
-   
-    background:#428bca;
-    color:#fff;
-    height:50px;
-    line-height:30px;
-    letter-spacing:1px;
-    width:100%;
-}
-.content {
-    margin-top:10px;
-}
-.menu-padding {
-    padding-top:40px;
-}
-.content p {
-    margin-bottom:20px;
-}
 .sticky {
     position:fixed;
     top:0;
+}
+
+.z-index {
+	z-index: 10;
+	margin-left: -15px;
+}
+
+@media (max-width: 768px) {
+	.z-index {
+		z-index: 10;
+		margin-left: 0px;
+	}
 }
