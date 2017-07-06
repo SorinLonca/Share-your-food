@@ -1,3 +1,14 @@
 .padding-top {
 	padding-top: 5em;
 }
+
+.logo{
+	height:100px; 
+	width:150px;
+}
+
+@media only screen and (max-device-width:480px){
+    .text-resize {
+		font-size: 0.6em;
+	}
+}
