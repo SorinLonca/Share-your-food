@@ -3,11 +3,14 @@
 var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
+var NavBar = require('./navbar.js');
 
 var Home = React.createClass({
 	render: function() {
 		return (
-			<h1>asd</h1>
+			<div className="container">
+				<NavBar />
+			</div>
 		);
 	}
 });

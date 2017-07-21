@@ -32701,18 +32701,161 @@ module.exports = App;
 var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
+var NavBar = require('./navbar.js');
 
 var Home = React.createClass({displayName: "Home",
 	render: function() {
 		return (
-			React.createElement("h1", null, "asd")
+			React.createElement("div", {className: "container"}, 
+				React.createElement(NavBar, null)
+			)
 		);
 	}
 });
 
 module.exports = Home;
 
-},{"react":196,"react-router":27}],199:[function(require,module,exports){
+},{"./navbar.js":199,"react":196,"react-router":27}],199:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+
+var NavBar = React.createClass({displayName: "NavBar",
+	getInitialState: function() {
+		return {
+			navbar: {brand: {linkTo: "#", text: "Share your food"}, 
+					links: [{linkTo: "#despre", text: "Despre"}, {linkTo: "#statistici", text: "Statistici"}, {linkTo: "#rest-ong", text: "Restaurante/ONG-uri"}, {linkTo: "#galerie", text: "Galerie"}, {linkTo: "#harta", text: "Harta"}, {linkTo: "#contact", text: "Contact"}]
+					}
+		};
+	},
+  render: function(){
+    return (
+      React.createElement("nav", {className: "navbar navbar-inverse"}, 
+        React.createElement("div", {className: "container-fluid"}, 
+          React.createElement("div", {className: "navbar-header"}, 
+            React.createElement("button", {type: "button", className: "navbar-toggle collapsed", "data-toggle": "collapse", "data-target": "#navbar-collapse", "aria-expanded": "false"}, 
+              React.createElement("span", {className: "sr-only"}, "Toggle navigation"), 
+              React.createElement("span", {className: "icon-bar"}), 
+              React.createElement("span", {className: "icon-bar"}), 
+              React.createElement("span", {className: "icon-bar"})
+            ), 
+            React.createElement(NavBrand, {linkTo: this.state.navbar.brand.linkTo, text: this.state.navbar.brand.text})
+          ), 
+          React.createElement("div", {className: "collapse navbar-collapse", id: "navbar-collapse"}, 
+            React.createElement(NavMenu, {links: this.state.navbar.links}), 
+            React.createElement("div", {className: "nav navbar-nav navbar-right"}, 
+			    React.createElement("li", {className: "dropdown"}, 
+			        React.createElement("a", {href: "#", className: "dropdown-toggle", "data-toggle": "dropdown"}, React.createElement("b", null, "Login"), " ", React.createElement("span", {className: "caret"})), 
+					React.createElement("ul", {id: "login-dp", className: "dropdown-menu"}, 
+						React.createElement("li", null, 
+							React.createElement("div", {className: "row"}, 
+								React.createElement("div", {className: "col-md-12"}, 
+									"Login via", 
+									React.createElement("div", {className: "social-buttons"}, 
+										React.createElement("a", {href: "#", className: "btn btn-fb"}, React.createElement("i", {class: "fa fa-facebook"}), " Facebook")
+									), 
+			                           "or", 
+									React.createElement("form", {className: "form", role: "form", method: "post", action: "login", acceptCharset: "UTF-8", id: "login-nav"}, 
+										React.createElement("div", {className: "form-group"}, 
+											React.createElement("label", {className: "sr-only", htlmFor: "exampleInputEmail2"}, "Email address"), 
+											React.createElement("input", {type: "email", className: "form-control", id: "exampleInputEmail2", placeholder: "Email address", required: true})
+										), 
+										React.createElement("div", {className: "form-group"}, 
+											React.createElement("label", {className: "sr-only", htmlFor: "exampleInputPassword2"}, "Password"), 
+											React.createElement("input", {type: "password", className: "form-control", id: "exampleInputPassword2", placeholder: "Password", required: true}), 
+			                                React.createElement("div", {className: "help-block text-right"}, React.createElement("a", {href: ""}, "Forget the password ?"))
+										), 
+										React.createElement("div", {className: "form-group"}, 
+											React.createElement("button", {type: "submit", className: "btn btn-primary btn-block"}, "Sign in")
+										), 
+										React.createElement("div", {className: "checkbox"}, 
+											React.createElement("label", null, 
+											React.createElement("input", {type: "checkbox"}, " keep me logged-in")
+											)
+											)
+									)
+								), 
+								React.createElement("div", {className: "bottom text-center"}, 
+									"New here ? ", React.createElement("a", {href: "#"}, React.createElement("b", null, "Join Us"))
+								)
+							)
+						)
+					)
+			    )
+			)
+          )
+        )	      
+      )
+    );
+  }
+});
+
+var NavBrand = React.createClass({displayName: "NavBrand",
+  render: function(){
+    return (
+      React.createElement("a", {className: "navbar-brand", href: this.props.linkTo}, this.props.text)
+    ); 
+  }
+});
+
+var NavMenu = React.createClass({displayName: "NavMenu",
+  render: function(){
+    var links = this.props.links.map(function(link){
+      if(link.dropdown) {
+        return (
+          React.createElement(NavLinkDropdown, {links: link.links, text: link.text, active: link.active})
+        );
+      }
+      else {
+        return (
+          React.createElement(NavLink, {linkTo: link.linkTo, text: link.text, active: link.active})
+        );
+      }
+    });
+    return (
+      React.createElement("ul", {className: "nav navbar-nav"}, 
+        links
+      )
+    );
+  }
+});
+
+var NavLinkDropdown = React.createClass({displayName: "NavLinkDropdown",
+  render: function(){
+    var active = false;
+    var links = this.props.links.map(function(link){
+      if(link.active){
+        active = true;
+      }
+      return (
+        React.createElement(NavLink, {linkTo: link.linkTo, text: link.text, active: link.active})
+      );
+    });
+    return (
+      React.createElement("li", {className: "dropdown " + (active ? "active" : "")}, 
+        React.createElement("a", {href: "#", className: "dropdown-toggle", "data-toggle": "dropdown", role: "button", "aria-haspopup": "true", "aria-expanded": "false"}, 
+          this.props.text, 
+          React.createElement("span", {className: "caret"})
+        ), 
+        React.createElement("ul", {className: "dropdown-menu"}, 
+          links
+        )
+      )
+    );
+  }
+});
+
+var NavLink = React.createClass({displayName: "NavLink",
+  render: function(){
+    return (
+      React.createElement("li", {className: (this.props.active ? "active" : "")}, React.createElement("a", {href: this.props.linkTo}, this.props.text))
+    );
+  }
+});
+
+module.exports = NavBar;
+
+},{"react":196}],200:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -32725,7 +32868,7 @@ Router.run(routes, Router.HistoryLocation, function(Handler){
 	React.render(React.createElement(Handler, null), document.getElementById('app'));
 });
 
-},{"./routes":200,"react":196,"react-router":27}],200:[function(require,module,exports){
+},{"./routes":201,"react":196,"react-router":27}],201:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -32742,4 +32885,4 @@ var routes = (
 );
 
 module.exports = routes;
-},{"../components/app":197,"../components/homePage":198,"react":196,"react-router":27}]},{},[199]);
+},{"../components/app":197,"../components/homePage":198,"react":196,"react-router":27}]},{},[200]);

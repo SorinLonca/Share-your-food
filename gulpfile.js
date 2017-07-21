@@ -15,13 +15,17 @@ var config = {
 	devBaseUrl: 'http://localhost',
 	paths: {
 		html: './views/*.html',
-		js: './public/**/*.js',
+		js: [
+			'./public/**/*.js',
+			'node_modules/bootstrap/dist/js/bootstrap.min.js',
+			'node_modules/jquery/dist/jquery.min.js'
+		],
 		images: './public/images/*',
 		css: [
 			'node_modules/bootstrap/dist/css/bootstrap.min.css',
 			'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
 			'node_modules/toastr/toastr.css',
-			'src/css/style.css'
+			'public/stylesheets/*.css'
 		],
 		mainJs: './public/javascripts/main.js',
 		dist: './dist'
